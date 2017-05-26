@@ -42,21 +42,21 @@
             <legend class="col-sm-12 ddz text-center">DDZ</legend>
             <span class="col-sm-12 help-block">斗地主在线计分器</span>
             <div class="col-sm-4 input-group p-1">
-                <label for="input_name1" class="input-group-addon form-label"><span><i
+                <label class="input-group-addon form-label"><span><i
                         class="fa fa-user"></i>User</span></label>
-                <input type="text" class="form-control" id="input_name1" placeholder="用户一">
+                <input type="text" class="form-control" placeholder="用户一">
             </div>
             <div class="col-sm-4 input-group p-1">
-                <label for="input_name2" class="input-group-addon form-label"><span><i
+                <label class="input-group-addon form-label"><span><i
                         class="fa fa-user"></i>User</span></label>
-                <input type="text" class="form-control" id="input_name2" placeholder="用户二">
+                <input type="text" class="form-control" placeholder="用户二">
             </div>
             <div class="col-sm-4 input-group p-1">
-                <label for="input_name3" class="input-group-addon form-label"><span><i
+                <label class="input-group-addon form-label"><span><i
                         class="fa fa-user"></i>User</span></label>
-                <input type="text" class="form-control" id="input_name3" placeholder="用户三">
+                <input type="text" class="form-control" placeholder="用户三">
             </div>
-            <button class="btn btn-block btn-success m-1" id="btn-ddz" type="submit">开始游戏</button>
+            <button class="btn btn-block btn-success m-1" id="btn-ddz">开始游戏</button>
         </div>
     </div>
     <div class="row-fluid alert alert-info p-0 m-1">
@@ -64,30 +64,30 @@
             <legend class="col-sm-12 ddz text-center">BSL</legend>
             <span class="col-sm-12">变色龙在线计分器</span>
             <div class="col-sm-4 input-group p-1">
-                <label for="input_name1" class="input-group-addon form-label"><span><i
+                <label class="input-group-addon form-label"><span><i
                         class="fa fa-user"></i>User</span></label>
-                <input type="text" class="form-control" id="input_name1" placeholder="用户一">
+                <input type="text" class="form-control" placeholder="用户一">
                 <label for="input_name2" class="input-group-addon form-label"><span><i
                         class="fa fa-user"></i>User</span></label>
                 <input type="text" class="form-control" id="input_name2" placeholder="用户二">
             </div>
             <div class="col-sm-4 input-group p-1">
-                <label for="input_name3" class="input-group-addon form-label"><span><i
+                <label class="input-group-addon form-label"><span><i
                         class="fa fa-user"></i>User</span></label>
-                <input type="text" class="form-control" id="input_name3" placeholder="用户三">
-                <label for="input_name4" class="input-group-addon form-label"><span><i
+                <input type="text" class="form-control" placeholder="用户三">
+                <label class="input-group-addon form-label"><span><i
                         class="fa fa-user"></i>User</span></label>
-                <input type="text" class="form-control" id="input_name4" placeholder="用户四">
+                <input type="text" class="form-control" placeholder="用户四">
             </div>
             <div class="col-sm-4 input-group p-1">
-                <label for="input_name5" class="input-group-addon form-label"><span><i
+                <label class="input-group-addon form-label"><span><i
                         class="fa fa-user"></i>User</span></label>
-                <input type="text" class="form-control" id="input_name5" placeholder="用户五">
-                <label for="input_name6" class="input-group-addon form-label"><span><i
+                <input type="text" class="form-control" placeholder="用户五">
+                <label class="input-group-addon form-label"><span><i
                         class="fa fa-user"></i>User</span></label>
-                <input type="text" class="form-control" id="input_name6" placeholder="用户六">
+                <input type="text" class="form-control" placeholder="用户六">
             </div>
-            <button class="btn btn-block btn-success m-1" id="btn-ddz" type="submit">开始游戏</button>
+            <button class="btn btn-block btn-success m-1" id="btn-bsl" type="submit">开始游戏</button>
         </div>
     </div>
 </div>
@@ -96,8 +96,8 @@
 <script type="text/javascript">
     $(document).ready(function () {
             $("#btn-ddz").click(function () {
-                console.log("hello");
-                window.location.href = "ddz.html";
+                $.post("ddz_start",{"user1":"zx"});
+                window.location.href="{{ url_for('ddz') }}";
                 return false;
             });
         }
