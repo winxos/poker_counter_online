@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 from flask import Flask, request, render_template, redirect, url_for
 import json
+from datetime import datetime
+
 app = Flask(__name__)
 
 sim_data = {}
-
 
 @app.route('/ddz_start', methods=["POST"])
 def ddz_start():
@@ -24,27 +25,25 @@ def ddz():
 def ddz_count():
     if request.method == 'POST':
         data = request.data.decode("utf8")
-        print(data)
         j_data = json.loads(data)
         users = j_data['users'].split(';')
         dz = j_data['dz']
-        print(j_data)
+        # print(j_data)
         is_win = int(j_data['is_win'])
         is_men = int(j_data['is_men'])
         bomb = int(j_data['bomb'])
         dz_score = (is_win * 2 - 1) * 2 * 2 ** (bomb + is_men)
-        print("dz %d" % dz_score)
-        if dz not in sim_data:
-            sim_data[dz] = [dz_score]
-        else:
-            sim_data[dz].append(sim_data[dz][-1] + dz_score)
+        if "users" not in sim_data:  # init
+            sim_data["date"] = [datetime.now().strftime("%Y/%m/%d %H:%M:%S")]
+            sim_data["users"] = {}
+            for u in users:
+                sim_data["users"][u] = [0]
         for u in users:
             if u != dz:
-                if u not in sim_data:
-                    sim_data[u] = [-dz_score // 2]
-                else:
-                    sim_data[u].append(sim_data[u][-1] + (-dz_score // 2))
-        print(sim_data)
+                sim_data["users"][u].append(-dz_score // 2 + sim_data["users"][u][-1])
+            else:
+                sim_data["users"][u].append(dz_score + sim_data["users"][u][-1])
+        sim_data["date"].append(datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
         return json.dumps(sim_data)
     return "ok"
 
@@ -68,13 +67,6 @@ def index():
 def show_user_profile(username):
     # show the user profile for that user
     return 'User %s' % username
-
-
-@app.route('/test', methods=['GET', 'POST'])
-def test():
-    data = request.data
-    print(data)
-    return data
 
 
 @app.route('/post/<int:post_id>')
