@@ -7,6 +7,7 @@ app = Flask(__name__)
 
 sim_data = {}
 
+
 @app.route('/ddz_start', methods=["POST"])
 def ddz_start():
     if request.method == 'POST':
@@ -48,6 +49,13 @@ def ddz_count():
     return "ok"
 
 
+@app.route('/ddz_chart', methods=["POST"])
+def ddz_chart():
+    if request.method == 'POST':
+        return json.dumps(sim_data)
+    return "ok"
+
+
 @app.route('/ddz_score', methods=["POST"])
 def ddz_score():
     if request.method == 'POST':
@@ -76,4 +84,4 @@ def show_post(post_id):
 
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", debug=True, port=80)
+    app.run(host="0.0.0.0", debug=True, port=777)
